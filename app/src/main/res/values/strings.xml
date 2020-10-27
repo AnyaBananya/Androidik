@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">BananaForecast</string>
+    <string name="app_name">Bananya Weather</string>
+    <string name="label_city">City</string>
+    <string name="label_cur_temp">Temperature</string>
+    <string name="city">Moscow</string>
+    <string name="cur_temp">+15</string>
 </resources>
