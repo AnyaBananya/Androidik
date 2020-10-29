@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Размер шрифта -->
+    <dimen name="mainText">20sp</dimen>
+    <dimen name="header">30sp</dimen>
+
+    <!-- Отступы -->
+    <dimen name="mainIndent">100dp</dimen>
+    <dimen name="simpleIndent">15dp</dimen>
+</resources>
