@@ -4,4 +4,16 @@
     <string name="label_cur_temp">Temperature</string>
     <string name="city">Moscow</string>
     <string name="cur_temp">+15</string>
+    <string name="label_pressure">Pressure</string>
+    <string name="label_wind_speed">Wind speed</string>
+    <string name="pressure">749 mmHg</string>
+    <string name="wind_speed">2 m/s</string>
+    <string name="button_select">Select</string>
+    <string name="button_go_to_city_list">Select another city</string>
+    <string-array name="cities">
+        <item>Moscow</item>
+        <item>Saint Petersburg</item>
+        <item>Novosibirsk</item>
+        <item>Yakutsk</item>
+    </string-array>
 </resources>
