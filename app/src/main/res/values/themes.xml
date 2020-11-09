@@ -14,13 +14,17 @@
         <!-- Customize your theme here. -->
     </style>
     <style name = "HeaderText">
-        <item name = "android:textSize">@dimen/header</item>
+        <item name = "android:textSize">@dimen/headerText</item>
         <item name = "android:textColor">@color/black</item>
         <item name="android:fontFamily">serif</item>
         <item name="android:textStyle">bold</item>
     </style>
     <style name = "SimpleText">
         <item name = "android:textSize">@dimen/mainText</item>
+        <item name="android:fontFamily">serif</item>
+    </style>
+    <style name = "AdditionText">
+        <item name = "android:textSize">@dimen/additionText</item>
         <item name="android:fontFamily">serif</item>
     </style>
 </resources>

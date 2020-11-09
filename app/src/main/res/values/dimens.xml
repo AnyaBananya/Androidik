@@ -2,9 +2,11 @@
 <resources>
     <!-- Размер шрифта -->
     <dimen name="mainText">20sp</dimen>
-    <dimen name="header">30sp</dimen>
+    <dimen name="headerText">30sp</dimen>
+    <dimen name="additionText">15sp</dimen>
 
     <!-- Отступы -->
     <dimen name="mainIndent">100dp</dimen>
     <dimen name="simpleIndent">15dp</dimen>
+    <dimen name="leftIndent">50dp</dimen>
 </resources>

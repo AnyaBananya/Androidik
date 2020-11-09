@@ -5,4 +5,16 @@
     <string name="label_cur_temp">Температура</string>
     <string name="city">Москва</string>
     <string name="cur_temp">+15</string>
+    <string name="label_pressure">Давление</string>
+    <string name="label_wind_speed">Скорость ветра</string>
+    <string name="pressure">749 мм. рт. ст</string>
+    <string name="wind_speed">2 м/с</string>
+    <string name="button_select">Выбрать</string>
+    <string name="button_go_to_city_list">Выбрать другой город</string>
+    <string-array name="cities">
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+        <item>Новосибирск</item>
+        <item>Якутск</item>
+    </string-array>
 </resources>
