@@ -57,6 +57,33 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/label_temp" />
 
+    <TextView
+        android:id="@+id/label_pressure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mainIndent"
+        android:gravity="center"
+        android:text="@string/label_pressure"
+        android:theme="@style/SimpleText"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/text_pressure"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_curr_temp" />
+
+    <TextView
+        android:id="@+id/text_pressure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/simpleIndent"
+        android:gravity="center"
+        android:text="@string/pressure"
+        android:theme="@style/HeaderText"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_pressure" />
+
     <Button
         android:id="@+id/buttonSelectCity"
         android:layout_width="match_parent"
