@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SelectCityActivity extends AppCompatActivity implements View.OnClickListener {
     private static final boolean DEBUG = false;
-    private static final String TAG = SelectCityActivity.class.getSimpleName();
+    private static final String TAG = "[" + SelectCityActivity.class.getSimpleName()+ "]";
 
     private String selectedCity;
     private Boolean isCheckPressure;
@@ -26,9 +26,8 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
 
         if (DEBUG) {
-            String msg = "[" + TAG + "] onCreate()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onCreate()");
+            Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
         }
 
         setContentView(R.layout.activity_select_city);
@@ -54,9 +53,8 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if (DEBUG) {
-            String msg = "[" + TAG + "] onClick()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onClick()");
+            Toast.makeText(getApplicationContext(), "onClick()", Toast.LENGTH_SHORT).show();
         }
 
         if (v.getId() == R.id.buttonSelectCity) {
@@ -71,9 +69,8 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
     protected void onStart() {
         super.onStart();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onStart()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onStart()");
+            Toast.makeText(getApplicationContext(), "onStart()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -81,20 +78,18 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
     protected void onResume() {
         super.onResume();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onResume()";
-
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onResume()");
+            Toast.makeText(getApplicationContext(), "onResume()", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onPause()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onPause()");
+            Toast.makeText(getApplicationContext(), "onPause()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -102,9 +97,8 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
     protected void onStop() {
         super.onStop();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onStop()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onStop()");
+            Toast.makeText(getApplicationContext(), "onStop()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -112,9 +106,8 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
     protected void onRestart() {
         super.onRestart();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onRestart()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onRestart()");
+            Toast.makeText(getApplicationContext(), "onRestart()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -122,9 +115,8 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
     protected void onDestroy() {
         super.onDestroy();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onDestroy()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onDestroy()");
+            Toast.makeText(getApplicationContext(), "onDestroy()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -132,9 +124,8 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (DEBUG) {
-            String msg = "[" + TAG + "] onRestoreInsSt()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onRestoreInsSt()");
+            Toast.makeText(getApplicationContext(), "onRestoreInsSt()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -142,9 +133,8 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (DEBUG) {
-            String msg = "[" + TAG + "] onSaveInsSt()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onSaveInsSt()");
+            Toast.makeText(getApplicationContext(), "onSaveInsSt()", Toast.LENGTH_SHORT).show();
         }
     }
 }

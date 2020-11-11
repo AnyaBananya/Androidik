@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = "[" + MainActivity.class.getSimpleName() + "]";
     private static final boolean DEBUG = false;
     private Boolean isCheckPressure;
     private String city;
@@ -22,9 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
 
         if (DEBUG) {
-            String msg = "[" + TAG + "] onCreate()";
             Log.d(TAG, "onCreate()");
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
         }
 
         setContentView(R.layout.activity_main);
@@ -51,9 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (DEBUG) {
-            String msg = "[" + TAG + "] onClick()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onClick()");
+            Toast.makeText(getApplicationContext(), "onClick()", Toast.LENGTH_SHORT).show();
         }
 
         if (v.getId() == R.id.buttonSelectCity) {
@@ -68,9 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onStart()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onStart()");
+            Toast.makeText(getApplicationContext(), "onStart()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -78,9 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onResume()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onResume()");
+            Toast.makeText(getApplicationContext(), "onResume()", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -89,9 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onPause()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onPause()");
+            Toast.makeText(getApplicationContext(), "onPause()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -99,9 +94,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStop() {
         super.onStop();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onStop()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onStop()");
+            Toast.makeText(getApplicationContext(), "onStop()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -109,9 +103,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onRestart() {
         super.onRestart();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onRestart()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onRestart()");
+            Toast.makeText(getApplicationContext(), "onRestart()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -119,9 +112,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         if (DEBUG) {
-            String msg = "[" + TAG + "] onDestroy()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onDestroy()");
+            Toast.makeText(getApplicationContext(), "onDestroy()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -129,9 +121,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (DEBUG) {
-            String msg = "[" + TAG + "] onRestoreInsSt()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onRestoreInsSt()");
+            Toast.makeText(getApplicationContext(), "onRestoreInsSt()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -139,9 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (DEBUG) {
-            String msg = "[" + TAG + "] onSaveInsSt()";
-            Log.d(TAG, msg);
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onSaveInsSt()");
+            Toast.makeText(getApplicationContext(), "onSaveInsSt()", Toast.LENGTH_SHORT).show();
         }
     }
 }
