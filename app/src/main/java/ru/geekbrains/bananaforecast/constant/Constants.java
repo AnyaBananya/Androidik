@@ -1,4 +1,4 @@
-package ru.geekbrains.bananaforecast;
+package ru.geekbrains.bananaforecast.constant;
 
 public class Constants {
     public static final String EXTRA_CITY = "EXTRA_CITY";

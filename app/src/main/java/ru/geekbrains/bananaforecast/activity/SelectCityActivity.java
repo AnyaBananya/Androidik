@@ -1,21 +1,29 @@
-package ru.geekbrains.bananaforecast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package ru.geekbrains.bananaforecast.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "[" + MainActivity.class.getSimpleName() + "]";
-    private static final boolean DEBUG = false;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import ru.geekbrains.bananaforecast.fragment.CityListFragment;
+import ru.geekbrains.bananaforecast.parcel.CityParcel;
+import ru.geekbrains.bananaforecast.R;
+import ru.geekbrains.bananaforecast.fragment.SelectCityButtonFragment;
+import ru.geekbrains.bananaforecast.observer.Publisher;
+import ru.geekbrains.bananaforecast.observer.PublisherGetter;
+
+public class SelectCityActivity extends AppCompatActivity implements View.OnClickListener, PublisherGetter {
+    private static final boolean DEBUG = true;
+    private Publisher publisher = new Publisher();
+    public static final String PARCEL = "parcel";
+    private static final String TAG = "[" + SelectCityActivity.class.getSimpleName()+ "]";
+
+    private String selectedCity;
     private Boolean isCheckPressure;
-    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,26 +33,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "onCreate()");
             Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
         }
-
-        setContentView(R.layout.activity_main);
-        TextView txtViewCity = (TextView) findViewById(R.id.text_city);
-
         Intent intent = getIntent();
+        CityParcel cityParcel = new CityParcel(getResources().getStringArray(R.array.cities)[0]);
+        CityListFragment.create(cityParcel);
+        SelectCityButtonFragment.create(cityParcel);
 
-        city = intent.hasExtra(Constants.EXTRA_CITY) ? intent.getStringExtra(Constants.EXTRA_CITY) : getResources().getString(R.string.city);
-        isCheckPressure = intent.getBooleanExtra(Constants.EXTRA_PRESSURE, false);
+        SelectCityButtonFragment selectCityButtonFragment = new SelectCityButtonFragment();
+        publisher.subcribe(selectCityButtonFragment);
 
-        txtViewCity.setText(city);
+        setContentView(R.layout.activity_select_city);
+       // selectedCity = intent.getStringExtra(Constants.EXTRA_CITY);
+/*        autoCompleteCities.setText(selectedCity);
 
-        if (isCheckPressure) {
-            TextView txtViewLabelPressure = (TextView) findViewById(R.id.label_pressure);
-            TextView txtViewPressure = (TextView) findViewById(R.id.text_pressure);
-            txtViewLabelPressure.setVisibility(View.VISIBLE);
-            txtViewPressure.setVisibility(View.VISIBLE);
-        }
+        autoCompleteCities.setAdapter(new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.cities)));
+        autoCompleteCities.setOnItemClickListener((parent, view, position, rowId) -> selectedCity = (String) parent.getItemAtPosition(position));*/
 
-        Button btnSelectCity = (Button) findViewById(R.id.buttonSelectCity);
-        btnSelectCity.setOnClickListener(this);
+        //CheckBox checkBxPressure = findViewById(R.id.checkBoxPressure);
+        //isCheckPressure = intent.getBooleanExtra(Constants.EXTRA_PRESSURE, false);
+       // checkBxPressure.setChecked(isCheckPressure);
+       // checkBxPressure.setOnCheckedChangeListener((buttonView, isChecked) -> isCheckPressure = checkBxPressure.isChecked());
+
+       // Button selectCity = (Button) findViewById(R.id.buttonSelectCity);
+       // selectCity.setOnClickListener(this);
     }
 
     @Override
@@ -55,9 +66,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         if (v.getId() == R.id.buttonSelectCity) {
-            Intent intent = new Intent(getApplicationContext(), SelectCityActivity.class);
-            intent.putExtra(Constants.EXTRA_CITY, city);
-            intent.putExtra(Constants.EXTRA_PRESSURE, isCheckPressure);
+
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+           // intent.putExtra(PARCEL, cityParcel);
             startActivity(intent);
         }
     }
@@ -133,5 +144,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "onSaveInsSt()");
             Toast.makeText(getApplicationContext(), "onSaveInsSt()", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public Publisher getPublisher() {
+        return publisher;
     }
 }
