@@ -16,4 +16,11 @@
         <item>Novosibirsk</item>
         <item>Yakutsk</item>
     </string-array>
+    <string-array name="temperatures">
+        <item>+15</item>
+        <item>+10</item>
+        <item>+5</item>
+        <item>-5</item>
+    </string-array>
+
 </resources>

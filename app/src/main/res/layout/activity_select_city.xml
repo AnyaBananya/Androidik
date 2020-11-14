@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".SelectCityActivity">
 
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <fragment
+                android:name="ru.geekbrains.bananaforecast.CitiesFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/cities" />
+    </FrameLayout>
+<!--
     <AutoCompleteTextView
         android:id="@+id/editTextCity"
         android:layout_width="match_parent"
@@ -65,13 +76,14 @@
         </TableRow>
 
     </TableLayout>
-
+-->
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/buttonSelectCity"
-        app:layout_constraintTop_toBottomOf="@id/TableLayout">
+        app:layout_constraintBottom_toTopOf="@id/buttonSelectCity">
+       <!-- app:layout_constraintTop_toBottomOf="@id/TableLayout"-->
+
 
         <CheckBox
             android:id="@+id/checkBoxPressure"

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "[" + MainActivity.class.getSimpleName() + "]";
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
     private Boolean isCheckPressure;
     private String city;
 
@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
 
-        city = intent.hasExtra(Constants.EXTRA_CITY) ? intent.getStringExtra(Constants.EXTRA_CITY) : getResources().getString(R.string.city);
+        city = intent.hasExtra(Constants.EXTRA_CITY) ? intent.getStringExtra(Constants.EXTRA_CITY) :
+            new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0]).getName();
         isCheckPressure = intent.getBooleanExtra(Constants.EXTRA_PRESSURE, false);
 
         txtViewCity.setText(city);
@@ -78,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "onResume()");
             Toast.makeText(getApplicationContext(), "onResume()", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override

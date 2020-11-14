@@ -12,10 +12,12 @@ import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 public class SelectCityActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
     private static final String TAG = "[" + SelectCityActivity.class.getSimpleName()+ "]";
 
     private String selectedCity;
@@ -30,24 +32,17 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
         }
 
-        setContentView(R.layout.activity_select_city);
-        AutoCompleteTextView autoCompleteCities = findViewById(R.id.editTextCity);
-
         Intent intent = getIntent();
-        selectedCity = intent.getStringExtra(Constants.EXTRA_CITY);
-        autoCompleteCities.setText(selectedCity);
 
-        autoCompleteCities.setAdapter(new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_dropdown_item_1line, getResources().getStringArray(R.array.cities)));
-        autoCompleteCities.setOnItemClickListener((parent, view, position, rowId) -> selectedCity = (String) parent.getItemAtPosition(position));
 
-        CheckBox checkBxPressure = findViewById(R.id.checkBoxPressure);
-        isCheckPressure = intent.getBooleanExtra(Constants.EXTRA_PRESSURE, false);
-        checkBxPressure.setChecked(isCheckPressure);
-        checkBxPressure.setOnCheckedChangeListener((buttonView, isChecked) -> isCheckPressure = checkBxPressure.isChecked());
+        setContentView(R.layout.activity_select_city);
+
+        //city = intent.hasExtra(Constants.EXTRA_CITY) ? intent.getStringExtra(Constants.EXTRA_CITY) :
+         //   new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0]).getName();
 
         Button selectCity = (Button) findViewById(R.id.buttonSelectCity);
         selectCity.setOnClickListener(this);
+
     }
 
     @Override
@@ -136,5 +131,5 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
             Log.d(TAG, "onSaveInsSt()");
             Toast.makeText(getApplicationContext(), "onSaveInsSt()", Toast.LENGTH_SHORT).show();
         }
-    }
+   }
 }
