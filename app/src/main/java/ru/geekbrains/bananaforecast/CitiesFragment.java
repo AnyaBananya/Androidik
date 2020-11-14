@@ -15,6 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import ru.geekbrains.bananaforecast.observer.Publisher;
+import ru.geekbrains.bananaforecast.observer.PublisherGetter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,8 +26,8 @@ import android.widget.TextView;
  * create an instance of this fragment.
  */
 public class CitiesFragment extends Fragment {
+    private Publisher publisher;
     City currentCity;
-    private boolean isSelected;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,13 +92,6 @@ public class CitiesFragment extends Fragment {
 
             currentCity = new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0]);
         }
-        if (isSelected) {
-            Log.d(CitiesFragment.class.getSimpleName(), "Зашли в isSelected");
-            Intent intent = new Intent();
-            intent.setClass(getContext(), SelectCityActivity.class);
-            intent.putExtra(Constants.EXTRA_CITY, currentCity.getName());
-            Log.d(CitiesFragment.class.getSimpleName(), currentCity.getName());
-        }
     }
 
     @Override
@@ -104,7 +101,6 @@ public class CitiesFragment extends Fragment {
     }
 
     private void initList(View view) {
-        isSelected = false;
         LinearLayout linearLayout = (LinearLayout) view;
         String[] cities = getResources().getStringArray(R.array.cities);
 
@@ -117,15 +113,21 @@ public class CitiesFragment extends Fragment {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    isSelected = true;
+                    Log.d(CitiesFragment.class.getSimpleName(), "onClick()");
+
                     textView.setBackgroundColor(Color.YELLOW);
                     currentCity = new City(city, getResources().getStringArray(R.array.temperatures)[finalI]);
+                    publisher.notify(currentCity);
                 }
             });
         }
     }
 
-    public City getSelectedCity() {
-        return currentCity;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        publisher = ((PublisherGetter) context).getPublisher();
     }
+
+
 }

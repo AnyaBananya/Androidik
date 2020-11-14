@@ -16,11 +16,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-public class SelectCityActivity extends AppCompatActivity implements View.OnClickListener {
+import ru.geekbrains.bananaforecast.observer.Observer;
+import ru.geekbrains.bananaforecast.observer.Publisher;
+import ru.geekbrains.bananaforecast.observer.PublisherGetter;
+
+public class SelectCityActivity extends AppCompatActivity implements View.OnClickListener, PublisherGetter, Observer {
     private static final boolean DEBUG = true;
+    private final Publisher publisher = new Publisher();
     private static final String TAG = "[" + SelectCityActivity.class.getSimpleName()+ "]";
 
-    private String selectedCity;
+    private City city;
     private Boolean isCheckPressure;
 
     @Override
@@ -34,7 +39,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
 
         Intent intent = getIntent();
 
-
+        publisher.subscribe(this);
         setContentView(R.layout.activity_select_city);
 
         //city = intent.hasExtra(Constants.EXTRA_CITY) ? intent.getStringExtra(Constants.EXTRA_CITY) :
@@ -54,11 +59,17 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
 
         if (v.getId() == R.id.buttonSelectCity) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra(Constants.EXTRA_CITY, selectedCity);
+            intent.putExtra(Constants.EXTRA_CITY, city.getName());
             intent.putExtra(Constants.EXTRA_PRESSURE, isCheckPressure);
             startActivity(intent);
         }
     }
+
+    @Override
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
 
     @Override
     protected void onStart() {
@@ -132,4 +143,13 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(getApplicationContext(), "onSaveInsSt()", Toast.LENGTH_SHORT).show();
         }
    }
+
+    @Override
+    public void selectCity(City cityParcel) {
+        if (DEBUG) {
+            Log.d(TAG, "selectCity(" + cityParcel.getName() + ")");
+            Toast.makeText(getApplicationContext(), "selectCity(" + cityParcel.getName() + ")", Toast.LENGTH_SHORT).show();
+        }
+        city = cityParcel;
+    }
 }
