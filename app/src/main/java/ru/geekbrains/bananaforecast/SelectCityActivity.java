@@ -37,17 +37,23 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
         }
 
-        Intent intent = getIntent();
-
         publisher.subscribe(this);
         setContentView(R.layout.activity_select_city);
 
-        //city = intent.hasExtra(Constants.EXTRA_CITY) ? intent.getStringExtra(Constants.EXTRA_CITY) :
-         //   new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0]).getName();
+        Intent intent = getIntent();
+        if (intent.hasExtra("parcel")) {
+            city = (City) intent.getSerializableExtra("parcel");
+        } else {
+            city = new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0],
+                getResources().getStringArray(R.array.pressures)[0], getResources().getStringArray(R.array.windSpeeds)[0]);
+        }
+
+        CheckBox cbNeedPressure = (CheckBox) findViewById(R.id.checkBoxPressure);
+        cbNeedPressure.setOnCheckedChangeListener((buttonView, isChecked) -> city.setNeedPressure( cbNeedPressure.isChecked()));
+        Log.d(SelectCityActivity.class.getSimpleName(), String.valueOf(cbNeedPressure.isChecked()));
 
         Button selectCity = (Button) findViewById(R.id.buttonSelectCity);
         selectCity.setOnClickListener(this);
-
     }
 
     @Override
@@ -59,8 +65,7 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
 
         if (v.getId() == R.id.buttonSelectCity) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra(Constants.EXTRA_CITY, city.getName());
-            intent.putExtra(Constants.EXTRA_PRESSURE, isCheckPressure);
+            intent.putExtra("parcel", city);
             startActivity(intent);
         }
     }

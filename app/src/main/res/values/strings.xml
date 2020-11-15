@@ -22,5 +22,17 @@
         <item>+5</item>
         <item>-5</item>
     </string-array>
+    <string-array name="pressures">
+        <item>749 mmHg</item>
+        <item>750 mmHg</item>
+        <item>751 mmHg</item>
+        <item>752 mmHg</item>
+    </string-array>
+    <string-array name="windSpeeds">
+        <item>2 m/s</item>
+        <item>10 m/s</item>
+        <item>3 m/s</item>
+        <item>4 m/s</item>
+    </string-array>
 
 </resources>

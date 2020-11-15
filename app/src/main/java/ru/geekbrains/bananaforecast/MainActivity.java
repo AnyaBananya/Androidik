@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "[" + MainActivity.class.getSimpleName() + "]";
     private static final boolean DEBUG = true;
     private Boolean isCheckPressure;
-    private String city;
+    private City city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,19 +27,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         setContentView(R.layout.activity_main);
-        TextView txtViewCity = (TextView) findViewById(R.id.text_city);
 
         Intent intent = getIntent();
+        if (intent.hasExtra("parcel")) {
+            city = (City) intent.getSerializableExtra("parcel");
+        } else {
+            city = new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0],
+                getResources().getStringArray(R.array.pressures)[0], getResources().getStringArray(R.array.windSpeeds)[0]);
+        }
 
-        city = intent.hasExtra(Constants.EXTRA_CITY) ? intent.getStringExtra(Constants.EXTRA_CITY) :
-            new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0]).getName();
-        isCheckPressure = intent.getBooleanExtra(Constants.EXTRA_PRESSURE, false);
+        TextView txtViewCity = (TextView) findViewById(R.id.text_city);
+        txtViewCity.setText(city.getName());
+        TextView txtViewTemperature = (TextView) findViewById(R.id.text_curr_temp);
+        txtViewTemperature.setText(city.getTemperature());
 
-        txtViewCity.setText(city);
-
-        if (isCheckPressure) {
+        if (city.isNeedPressure()) {
             TextView txtViewLabelPressure = (TextView) findViewById(R.id.label_pressure);
             TextView txtViewPressure = (TextView) findViewById(R.id.text_pressure);
+            txtViewPressure.setText(city.getPressure());
             txtViewLabelPressure.setVisibility(View.VISIBLE);
             txtViewPressure.setVisibility(View.VISIBLE);
         }
@@ -57,8 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (v.getId() == R.id.buttonSelectCity) {
             Intent intent = new Intent(getApplicationContext(), SelectCityActivity.class);
-            intent.putExtra(Constants.EXTRA_CITY, city);
-            intent.putExtra(Constants.EXTRA_PRESSURE, isCheckPressure);
+            intent.putExtra("parcel", city);
             startActivity(intent);
         }
     }
@@ -128,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putSerializable("CurrentCity", city);
         super.onSaveInstanceState(outState);
         if (DEBUG) {
             Log.d(TAG, "onSaveInsSt()");

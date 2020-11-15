@@ -1,7 +1,6 @@
 package ru.geekbrains.bananaforecast;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -15,16 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import ru.geekbrains.bananaforecast.observer.Publisher;
 import ru.geekbrains.bananaforecast.observer.PublisherGetter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CitiesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CitiesFragment extends Fragment {
     private Publisher publisher;
     City currentCity;
@@ -87,10 +80,10 @@ public class CitiesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
-            currentCity = (City) savedInstanceState.getSerializable("CurrenctCity");
+            currentCity = (City) savedInstanceState.getSerializable("CurrentCity");
         } else {
-
-            currentCity = new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0]);
+            currentCity = new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0],
+                getResources().getStringArray(R.array.pressures)[0], getResources().getStringArray(R.array.windSpeeds)[0]);
         }
     }
 
@@ -103,20 +96,28 @@ public class CitiesFragment extends Fragment {
     private void initList(View view) {
         LinearLayout linearLayout = (LinearLayout) view;
         String[] cities = getResources().getStringArray(R.array.cities);
+        TextView[] textViews = new TextView[cities.length];
 
         for (int i = 0; i < cities.length; i++) {
             String city = cities[i];
             TextView textView = new TextView(getContext(), null, 0, R.style.HeaderText);
+            textViews[i] = textView;
             textView.setText(city);
             linearLayout.addView(textView);
             int finalI = i;
+
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(CitiesFragment.class.getSimpleName(), "onClick()");
+                    for (TextView tv: textViews){
+                        tv.setBackgroundColor(Color.WHITE);
 
+                    }
+                    Log.d(CitiesFragment.class.getSimpleName(), "onClick()");
                     textView.setBackgroundColor(Color.YELLOW);
-                    currentCity = new City(city, getResources().getStringArray(R.array.temperatures)[finalI]);
+                    currentCity =
+                        new City(city, getResources().getStringArray(R.array.temperatures)[finalI], getResources().getStringArray(R.array.pressures)[finalI],
+                            getResources().getStringArray(R.array.windSpeeds)[finalI]);
                     publisher.notify(currentCity);
                 }
             });
@@ -128,6 +129,4 @@ public class CitiesFragment extends Fragment {
         super.onAttach(context);
         publisher = ((PublisherGetter) context).getPublisher();
     }
-
-
 }

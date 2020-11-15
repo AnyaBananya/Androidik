@@ -17,4 +17,16 @@
         <item>Новосибирск</item>
         <item>Якутск</item>
     </string-array>
+    <string-array name="pressures">
+        <item>749 мм. рт. ст</item>
+        <item>750 мм. рт. ст</item>
+        <item>751 мм. рт. ст</item>
+        <item>752 мм. рт. ст</item>
+    </string-array>
+    <string-array name="windSpeeds">
+        <item>2 м/с</item>
+        <item>10 м/с</item>
+        <item>3 м/с</item>
+        <item>4 м/с</item>
+    </string-array>
 </resources>

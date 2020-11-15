@@ -5,19 +5,25 @@ import java.io.Serializable;
 public class City implements Serializable {
     private String name;
     private String temperature;
-    private float pressure;
-    private float windSpeed;
+    private String pressure;
+    private String windSpeed;
+    private boolean isNeedPressure;
+    private boolean isNeedWindSpeed;
 
-    public City(String name, String temperature, float pressure, float windSpeed) {
+    public City(String name, String temperature, String pressure, String windSpeed) {
         this.name = name;
         this.temperature = temperature;
         this.pressure = pressure;
         this.windSpeed = windSpeed;
+        this.isNeedPressure = false;
+        this.isNeedWindSpeed = false;
     }
 
     public City(String name, String temperature) {
         this.name = name;
         this.temperature = temperature;
+        this.isNeedPressure = false;
+        this.isNeedWindSpeed = false;
     }
 
     public String getName() {
@@ -36,19 +42,35 @@ public class City implements Serializable {
         this.temperature = temperature;
     }
 
-    public float getPressure() {
+    public String getPressure() {
         return pressure;
     }
 
-    public void setPressure(float pressure) {
+    public void setPressure(String pressure) {
         this.pressure = pressure;
     }
 
-    public float getWindSpeed() {
+    public String getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(float windSpeed) {
+    public void setWindSpeed(String windSpeed) {
         this.windSpeed = windSpeed;
+    }
+
+    public boolean isNeedPressure() {
+        return isNeedPressure;
+    }
+
+    public void setNeedPressure(boolean needPressure) {
+        isNeedPressure = needPressure;
+    }
+
+    public boolean isNeedWindSpeed() {
+        return isNeedWindSpeed;
+    }
+
+    public void setNeedWindSpeed(boolean needWindSpeed) {
+        isNeedWindSpeed = needWindSpeed;
     }
 }
