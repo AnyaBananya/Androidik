@@ -19,77 +19,69 @@ import ru.geekbrains.bananaforecast.observer.Publisher;
 import ru.geekbrains.bananaforecast.observer.PublisherGetter;
 
 public class CitiesFragment extends Fragment {
+    private static final String TAG = CitiesFragment.class.getSimpleName();
+    private static final boolean DEBUG = true;
     private Publisher publisher;
-    City currentCity;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CitiesFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CitiesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CitiesFragment newInstance(String param1, String param2) {
-        CitiesFragment fragment = new CitiesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private City currentCity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        if (DEBUG) {
+            Log.d(TAG, "onCreate()");
+        }
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
+        if(savedInstanceState!=null){
+            currentCity = (City) savedInstanceState.getSerializable(Constants.EXTRA_PARCEL);
+            if (DEBUG) {
+                Log.d(TAG, currentCity.getName());
+            }
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        if (DEBUG) {
+            Log.d(TAG, "onCreateView()");
+        }
+
         return inflater.inflate(R.layout.fragment_cities, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        if (DEBUG) {
+            Log.d(TAG, "onViewCreated()");
+        }
         super.onViewCreated(view, savedInstanceState);
         initList(view);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        if (DEBUG) {
+            Log.d(TAG, "onActivityCreated()");
+        }
         super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState != null) {
-            currentCity = (City) savedInstanceState.getSerializable("CurrentCity");
+            currentCity = (City) savedInstanceState.getSerializable(Constants.EXTRA_PARCEL);
         } else {
             currentCity = new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0],
                 getResources().getStringArray(R.array.pressures)[0], getResources().getStringArray(R.array.windSpeeds)[0]);
+        }
+        if (DEBUG) {
+            Log.d(TAG, currentCity.getName());
         }
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putSerializable("CurrentCity", currentCity);
+        if (DEBUG) {
+            Log.d(TAG, "onSaveInstanceState()");
+        }
+        outState.putSerializable(Constants.EXTRA_PARCEL, currentCity);
         super.onSaveInstanceState(outState);
     }
 
@@ -109,11 +101,9 @@ public class CitiesFragment extends Fragment {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (TextView tv: textViews){
+                    for (TextView tv : textViews) {
                         tv.setBackgroundColor(Color.WHITE);
-
                     }
-                    Log.d(CitiesFragment.class.getSimpleName(), "onClick()");
                     textView.setBackgroundColor(Color.YELLOW);
                     currentCity =
                         new City(city, getResources().getStringArray(R.array.temperatures)[finalI], getResources().getStringArray(R.array.pressures)[finalI],
@@ -126,6 +116,9 @@ public class CitiesFragment extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
+        if (DEBUG) {
+            Log.d(TAG, "onAttach()");
+        }
         super.onAttach(context);
         publisher = ((PublisherGetter) context).getPublisher();
     }
