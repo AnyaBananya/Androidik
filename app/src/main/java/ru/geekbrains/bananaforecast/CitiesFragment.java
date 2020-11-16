@@ -88,23 +88,25 @@ public class CitiesFragment extends Fragment {
     private void initList(View view) {
         LinearLayout linearLayout = (LinearLayout) view;
         String[] cities = getResources().getStringArray(R.array.cities);
-        TextView[] textViews = new TextView[cities.length];
+        View[] views = new View[cities.length];
+        LayoutInflater layoutInflater = getLayoutInflater();
 
         for (int i = 0; i < cities.length; i++) {
             String city = cities[i];
-            TextView textView = new TextView(getContext(), null, 0, R.style.HeaderText);
-            textViews[i] = textView;
+            View cityItem = layoutInflater.inflate(R.layout.item_city, linearLayout, false);
+            TextView textView = cityItem.findViewById(R.id.cityTextView);
             textView.setText(city);
-            linearLayout.addView(textView);
+            linearLayout.addView(cityItem);
+            views[i] = cityItem;
             int finalI = i;
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (TextView tv : textViews) {
-                        tv.setBackgroundColor(Color.WHITE);
+                    for (View v : views) {
+                        v.setBackgroundColor(Color.WHITE);
                     }
-                    textView.setBackgroundColor(Color.YELLOW);
+                    cityItem.setBackgroundColor(Color.YELLOW);
                     currentCity =
                         new City(city, getResources().getStringArray(R.array.temperatures)[finalI], getResources().getStringArray(R.array.pressures)[finalI],
                             getResources().getStringArray(R.array.windSpeeds)[finalI]);
