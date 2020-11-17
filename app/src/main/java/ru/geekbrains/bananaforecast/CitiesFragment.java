@@ -20,7 +20,7 @@ import ru.geekbrains.bananaforecast.observer.PublisherGetter;
 
 public class CitiesFragment extends Fragment {
     private static final String TAG = CitiesFragment.class.getSimpleName();
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private Publisher publisher;
     private City currentCity;
 

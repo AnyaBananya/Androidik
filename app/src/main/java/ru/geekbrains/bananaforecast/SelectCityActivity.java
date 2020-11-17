@@ -18,7 +18,7 @@ import ru.geekbrains.bananaforecast.observer.PublisherGetter;
 
 public class SelectCityActivity extends AppCompatActivity implements View.OnClickListener, PublisherGetter, Observer {
     private static final String TAG = SelectCityActivity.class.getSimpleName();
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private final Publisher publisher = new Publisher();
 
     private City city;

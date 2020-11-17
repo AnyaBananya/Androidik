@@ -2,6 +2,8 @@ package ru.geekbrains.bananaforecast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +12,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Formatter;
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
+    private static final int DAY_COUNT = 5;
     private City city;
 
     @Override
@@ -24,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         setContentView(R.layout.activity_main);
+
+        String[] days = {"12.01", "13.01"};
+        String[] temperatures = {"+13", "+3"};
+        initRecyclerView(generateDays(), generateTemperatures());
 
         Intent intent = getIntent();
         if (intent.hasExtra("parcel")) {
@@ -48,6 +64,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btnSelectCity = (Button) findViewById(R.id.buttonSelectCity);
         btnSelectCity.setOnClickListener(this);
+    }
+
+    private void initRecyclerView(String[] days, String[] temperatures) {
+        RecyclerView recyclerView = findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        SocnetAdapter adapter = new SocnetAdapter(days, temperatures);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private String[] generateDays() {
+        String[] days = new String[DAY_COUNT];
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM");
+        Calendar calendar = Calendar.getInstance();
+
+        for (int i = 0; i < DAY_COUNT; i++) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            days[i] = dateFormatter.format(calendar.getTime());
+        }
+
+        return days;
+    }
+
+    private String[] generateTemperatures() {
+        String[] temps = new String[DAY_COUNT];
+        Calendar calendar = Calendar.getInstance();
+
+        for (int i = 0; i < DAY_COUNT; i++) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            temps[i] = "+ " + calendar.get(Calendar.DAY_OF_MONTH);
+        }
+
+        return temps;
     }
 
     @Override
