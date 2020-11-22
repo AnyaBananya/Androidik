@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
 
-        String[] days = {"12.01", "13.01"};
-        String[] temperatures = {"+13", "+3"};
         initRecyclerView(generateDays(), generateTemperatures());
 
         Intent intent = getIntent();
