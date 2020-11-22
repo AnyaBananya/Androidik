@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putSerializable("CurrentCity", city);
+        outState.putSerializable(Constants.EXTRA_CURRENT_CITY, city);
         super.onSaveInstanceState(outState);
         if (DEBUG) {
             Log.d(TAG, "onSaveInsSt()");
