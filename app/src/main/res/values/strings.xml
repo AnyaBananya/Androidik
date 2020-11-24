@@ -10,6 +10,10 @@
     <string name="wind_speed">2 m/s</string>
     <string name="button_select">Select</string>
     <string name="button_go_to_city_list">Select another city</string>
+    <string name="msg_pressure">Pressure is checked</string>
+    <string name="darkTheme">Dark theme</string>
+    <string name="toast">Text for a toast</string>
+    <string name="back">Back</string>
     <string-array name="cities">
         <item>Moscow</item>
         <item>Saint Petersburg</item>

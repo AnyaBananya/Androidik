@@ -7,16 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
+import com.google.android.material.snackbar.Snackbar;
 import ru.geekbrains.bananaforecast.observer.Observer;
 import ru.geekbrains.bananaforecast.observer.Publisher;
 import ru.geekbrains.bananaforecast.observer.PublisherGetter;
 
-public class SelectCityActivity extends AppCompatActivity implements View.OnClickListener, PublisherGetter, Observer {
+public class SelectCityActivity extends BaseActivity implements View.OnClickListener, PublisherGetter, Observer {
     private static final String TAG = SelectCityActivity.class.getSimpleName();
     private static final boolean DEBUG = false;
     private final Publisher publisher = new Publisher();
@@ -45,7 +43,12 @@ public class SelectCityActivity extends AppCompatActivity implements View.OnClic
         }
 
         CheckBox cbNeedPressure = (CheckBox) findViewById(R.id.checkBoxPressure);
-        cbNeedPressure.setOnCheckedChangeListener((buttonView, isChecked) -> city.setNeedPressure(cbNeedPressure.isChecked()));
+        cbNeedPressure.setOnCheckedChangeListener((compoundButton, b) -> {
+            city.setNeedPressure(cbNeedPressure.isChecked());
+            if(cbNeedPressure.isChecked()){
+                Snackbar.make(compoundButton, getResources().getString(R.string.msg_pressure), Snackbar.LENGTH_LONG).show();
+            }
+        });
 
         Button selectCity = (Button) findViewById(R.id.buttonSelectCity);
         selectCity.setOnClickListener(this);

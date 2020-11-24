@@ -1,7 +1,7 @@
 package ru.geekbrains.bananaforecast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,21 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Formatter;
-import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final boolean DEBUG = false;
     private static final int DAY_COUNT = 5;
     private City city;
+    private static final int SETTING_CODE = 88;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +30,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         setContentView(R.layout.activity_main);
+
+        Button setting = findViewById(R.id.button3);
+        setting.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivityForResult(intent, SETTING_CODE);
+        });
 
         initRecyclerView(generateDays(), generateTemperatures());
 
@@ -175,4 +175,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d(TAG, "onSaveInsSt()");
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SETTING_CODE){
+            recreate();
+        }
+    }
+
 }
