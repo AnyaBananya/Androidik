@@ -6,7 +6,7 @@
     <dimen name="additionText">15sp</dimen>
 
     <!-- Отступы -->
-    <dimen name="mainIndent">100dp</dimen>
+    <dimen name="mainIndent">60dp</dimen>
     <dimen name="simpleIndent">15dp</dimen>
     <dimen name="leftIndent">50dp</dimen>
 </resources>

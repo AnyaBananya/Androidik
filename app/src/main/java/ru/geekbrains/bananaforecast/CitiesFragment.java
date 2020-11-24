@@ -20,7 +20,7 @@ import ru.geekbrains.bananaforecast.observer.PublisherGetter;
 
 public class CitiesFragment extends Fragment {
     private static final String TAG = CitiesFragment.class.getSimpleName();
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private Publisher publisher;
     private City currentCity;
 
@@ -31,7 +31,7 @@ public class CitiesFragment extends Fragment {
         }
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             currentCity = (City) savedInstanceState.getSerializable(Constants.EXTRA_PARCEL);
             if (DEBUG) {
                 Log.d(TAG, currentCity.getName());
@@ -68,8 +68,11 @@ public class CitiesFragment extends Fragment {
         if (savedInstanceState != null) {
             currentCity = (City) savedInstanceState.getSerializable(Constants.EXTRA_PARCEL);
         } else {
-            currentCity = new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0],
-                getResources().getStringArray(R.array.pressures)[0], getResources().getStringArray(R.array.windSpeeds)[0]);
+            String city = getResources().getStringArray(R.array.cities)[0];
+            String temperature = getResources().getStringArray(R.array.temperatures)[0];
+            String pressure = getResources().getStringArray(R.array.pressures)[0];
+            String windSpeed = getResources().getStringArray(R.array.windSpeeds)[0];
+            currentCity = new City(city, temperature, pressure, windSpeed);
         }
         if (DEBUG) {
             Log.d(TAG, currentCity.getName());
@@ -88,26 +91,29 @@ public class CitiesFragment extends Fragment {
     private void initList(View view) {
         LinearLayout linearLayout = (LinearLayout) view;
         String[] cities = getResources().getStringArray(R.array.cities);
-        TextView[] textViews = new TextView[cities.length];
+        View[] views = new View[cities.length];
+        LayoutInflater layoutInflater = getLayoutInflater();
 
         for (int i = 0; i < cities.length; i++) {
             String city = cities[i];
-            TextView textView = new TextView(getContext(), null, 0, R.style.HeaderText);
-            textViews[i] = textView;
+            View cityItem = layoutInflater.inflate(R.layout.item_city, linearLayout, false);
+            TextView textView = cityItem.findViewById(R.id.cityTextView);
             textView.setText(city);
-            linearLayout.addView(textView);
+            linearLayout.addView(cityItem);
+            views[i] = cityItem;
             int finalI = i;
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    for (TextView tv : textViews) {
-                        tv.setBackgroundColor(Color.WHITE);
+                    for (View v : views) {
+                        v.setBackgroundColor(Color.WHITE);
                     }
-                    textView.setBackgroundColor(Color.YELLOW);
-                    currentCity =
-                        new City(city, getResources().getStringArray(R.array.temperatures)[finalI], getResources().getStringArray(R.array.pressures)[finalI],
-                            getResources().getStringArray(R.array.windSpeeds)[finalI]);
+                    cityItem.setBackgroundColor(Color.YELLOW);
+                    String temperature = getResources().getStringArray(R.array.temperatures)[finalI];
+                    String pressure = getResources().getStringArray(R.array.pressures)[finalI];
+                    String windSpeed = getResources().getStringArray(R.array.windSpeeds)[finalI];
+                    currentCity = new City(city, temperature, pressure, windSpeed);
                     publisher.notify(currentCity);
                 }
             });
@@ -120,6 +126,10 @@ public class CitiesFragment extends Fragment {
             Log.d(TAG, "onAttach()");
         }
         super.onAttach(context);
-        publisher = ((PublisherGetter) context).getPublisher();
+        try {
+            publisher = ((PublisherGetter) context).getPublisher();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement PublisherGetter");
+        }
     }
 }

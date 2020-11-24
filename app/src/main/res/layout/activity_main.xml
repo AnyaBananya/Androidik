@@ -15,25 +15,40 @@
             app:layout_constraintBottom_toTopOf="@+id/buttonSelectCity"
             android:layout_height="0px">
 
-        <FrameLayout
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <fragment
-                    android:id="@+id/cityInfo"
+            <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:name="ru.geekbrains.bananaforecast.CityInfoFragment" />
-        </FrameLayout>
+                    android:layout_weight="1">
+
+                <fragment
+                        android:id="@+id/cityInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:name="ru.geekbrains.bananaforecast.CityInfoFragment" />
+            </FrameLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+        </LinearLayout>
     </ScrollView>
 
     <Button
             android:id="@+id/buttonSelectCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/scroll"
+            app:layout_constraintTop_toBottomOf="@+id/recycler"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="@string/button_go_to_city_list"/>
+            android:text="@string/button_go_to_city_list"
+            tools:ignore="NotSibling" />
 </androidx.constraintlayout.widget.ConstraintLayout>

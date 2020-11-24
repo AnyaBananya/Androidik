@@ -29,4 +29,9 @@
         <item>3 м/с</item>
         <item>4 м/с</item>
     </string-array>
+    <string-array name="days">
+        <item>Tomorrow +10</item>
+        <item>01.01.2021 +5</item>
+        <item>02.01.2021 +2</item>
+    </string-array>
 </resources>
