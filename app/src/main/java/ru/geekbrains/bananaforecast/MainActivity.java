@@ -8,103 +8,130 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button btnGoToCityList;
-
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = "[" + MainActivity.class.getSimpleName() + "]";
+    private static final boolean DEBUG = false;
+    private Boolean isCheckPressure;
+    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String msg = "[" + TAG + "] onCreate()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+        if (DEBUG) {
+            Log.d(TAG, "onCreate()");
+            Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
+        }
 
         setContentView(R.layout.activity_main);
+        TextView txtViewCity = (TextView) findViewById(R.id.text_city);
 
-        btnGoToCityList = (Button) findViewById(R.id.buttonSelectCity);
-        btnGoToCityList.setOnClickListener(this);
+        Intent intent = getIntent();
+
+        city = intent.hasExtra(Constants.EXTRA_CITY) ? intent.getStringExtra(Constants.EXTRA_CITY) : getResources().getString(R.string.city);
+        isCheckPressure = intent.getBooleanExtra(Constants.EXTRA_PRESSURE, false);
+
+        txtViewCity.setText(city);
+
+        if (isCheckPressure) {
+            TextView txtViewLabelPressure = (TextView) findViewById(R.id.label_pressure);
+            TextView txtViewPressure = (TextView) findViewById(R.id.text_pressure);
+            txtViewLabelPressure.setVisibility(View.VISIBLE);
+            txtViewPressure.setVisibility(View.VISIBLE);
+        }
+
+        Button btnSelectCity = (Button) findViewById(R.id.buttonSelectCity);
+        btnSelectCity.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        String msg = "[" + TAG + "] onClick()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (DEBUG) {
+            Log.d(TAG, "onClick()");
+            Toast.makeText(getApplicationContext(), "onClick()", Toast.LENGTH_SHORT).show();
+        }
 
-        switch (v.getId()) {
-            case R.id.buttonSelectCity:
-                Intent intent = new Intent(this, SelectCityActivity.class);
-                startActivity(intent);
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.buttonSelectCity) {
+            Intent intent = new Intent(getApplicationContext(), SelectCityActivity.class);
+            intent.putExtra(Constants.EXTRA_CITY, city);
+            intent.putExtra(Constants.EXTRA_PRESSURE, isCheckPressure);
+            startActivity(intent);
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        String msg ="[" + TAG + "] onStart()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (DEBUG) {
+            Log.d(TAG, "onStart()");
+            Toast.makeText(getApplicationContext(), "onStart()", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        String msg = "[" + TAG + "] onResume()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (DEBUG) {
+            Log.d(TAG, "onResume()");
+            Toast.makeText(getApplicationContext(), "onResume()", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        String msg = "[" + TAG + "] onPause()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (DEBUG) {
+            Log.d(TAG, "onPause()");
+            Toast.makeText(getApplicationContext(), "onPause()", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        String msg = "[" + TAG + "] onStop()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (DEBUG) {
+            Log.d(TAG, "onStop()");
+            Toast.makeText(getApplicationContext(), "onStop()", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        String msg = "[" + TAG + "] onRestart()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (DEBUG) {
+            Log.d(TAG, "onRestart()");
+            Toast.makeText(getApplicationContext(), "onRestart()", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        String msg = "[" + TAG + "] onDestroy()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (DEBUG) {
+            Log.d(TAG, "onDestroy()");
+            Toast.makeText(getApplicationContext(), "onDestroy()", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        String msg = "[" + TAG + "] onRestoreInsSt()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (DEBUG) {
+            Log.d(TAG, "onRestoreInsSt()");
+            Toast.makeText(getApplicationContext(), "onRestoreInsSt()", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        String msg = "[" + TAG + "] onSaveInsSt()";
-        Log.d(TAG, msg);
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+        if (DEBUG) {
+            Log.d(TAG, "onSaveInsSt()");
+            Toast.makeText(getApplicationContext(), "onSaveInsSt()", Toast.LENGTH_SHORT).show();
+        }
     }
 }
