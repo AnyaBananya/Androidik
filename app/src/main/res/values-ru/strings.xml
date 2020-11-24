@@ -11,6 +11,10 @@
     <string name="wind_speed">2 м/с</string>
     <string name="button_select">Выбрать</string>
     <string name="button_go_to_city_list">Выбрать другой город</string>
+    <string name="msg_pressure">Будет отображаться давление</string>
+    <string name="darkTheme">Темная тема</string>
+    <string name="toast">Текст для toast</string>
+    <string name="back">Назад</string>
     <string-array name="cities">
         <item>Москва</item>
         <item>Санкт-Петербург</item>
