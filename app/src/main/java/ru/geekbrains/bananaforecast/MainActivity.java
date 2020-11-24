@@ -9,13 +9,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TAG = "[" + MainActivity.class.getSimpleName() + "]";
-    private static final boolean DEBUG = false;
-    private Boolean isCheckPressure;
-    private String city;
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final boolean DEBUG = true;
+    private City city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,22 +21,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (DEBUG) {
             Log.d(TAG, "onCreate()");
-            Toast.makeText(getApplicationContext(), "onCreate()", Toast.LENGTH_SHORT).show();
         }
 
         setContentView(R.layout.activity_main);
-        TextView txtViewCity = (TextView) findViewById(R.id.text_city);
 
         Intent intent = getIntent();
+        if (intent.hasExtra("parcel")) {
+            city = (City) intent.getSerializableExtra("parcel");
+        } else {
+            city = new City(getResources().getStringArray(R.array.cities)[0], getResources().getStringArray(R.array.temperatures)[0],
+                getResources().getStringArray(R.array.pressures)[0], getResources().getStringArray(R.array.windSpeeds)[0]);
+        }
 
-        city = intent.hasExtra(Constants.EXTRA_CITY) ? intent.getStringExtra(Constants.EXTRA_CITY) : getResources().getString(R.string.city);
-        isCheckPressure = intent.getBooleanExtra(Constants.EXTRA_PRESSURE, false);
+        TextView txtViewCity = (TextView) findViewById(R.id.text_city);
+        txtViewCity.setText(city.getName());
+        TextView txtViewTemperature = (TextView) findViewById(R.id.text_curr_temp);
+        txtViewTemperature.setText(city.getTemperature());
 
-        txtViewCity.setText(city);
-
-        if (isCheckPressure) {
+        if (city.isNeedPressure()) {
             TextView txtViewLabelPressure = (TextView) findViewById(R.id.label_pressure);
             TextView txtViewPressure = (TextView) findViewById(R.id.text_pressure);
+            txtViewPressure.setText(city.getPressure());
             txtViewLabelPressure.setVisibility(View.VISIBLE);
             txtViewPressure.setVisibility(View.VISIBLE);
         }
@@ -50,14 +53,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (DEBUG) {
-            Log.d(TAG, "onClick()");
-            Toast.makeText(getApplicationContext(), "onClick()", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onClick() " + city.getName());
         }
 
         if (v.getId() == R.id.buttonSelectCity) {
             Intent intent = new Intent(getApplicationContext(), SelectCityActivity.class);
-            intent.putExtra(Constants.EXTRA_CITY, city);
-            intent.putExtra(Constants.EXTRA_PRESSURE, isCheckPressure);
+            intent.putExtra(Constants.EXTRA_PARCEL, city);
             startActivity(intent);
         }
     }
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         if (DEBUG) {
             Log.d(TAG, "onStart()");
-            Toast.makeText(getApplicationContext(), "onStart()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -76,9 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         if (DEBUG) {
             Log.d(TAG, "onResume()");
-            Toast.makeText(getApplicationContext(), "onResume()", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
@@ -86,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onPause();
         if (DEBUG) {
             Log.d(TAG, "onPause()");
-            Toast.makeText(getApplicationContext(), "onPause()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -95,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStop();
         if (DEBUG) {
             Log.d(TAG, "onStop()");
-            Toast.makeText(getApplicationContext(), "onStop()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -104,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onRestart();
         if (DEBUG) {
             Log.d(TAG, "onRestart()");
-            Toast.makeText(getApplicationContext(), "onRestart()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -113,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         if (DEBUG) {
             Log.d(TAG, "onDestroy()");
-            Toast.makeText(getApplicationContext(), "onDestroy()", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -122,16 +116,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onRestoreInstanceState(savedInstanceState);
         if (DEBUG) {
             Log.d(TAG, "onRestoreInsSt()");
-            Toast.makeText(getApplicationContext(), "onRestoreInsSt()", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putSerializable("CurrentCity", city);
         super.onSaveInstanceState(outState);
         if (DEBUG) {
             Log.d(TAG, "onSaveInsSt()");
-            Toast.makeText(getApplicationContext(), "onSaveInsSt()", Toast.LENGTH_SHORT).show();
         }
     }
 }
