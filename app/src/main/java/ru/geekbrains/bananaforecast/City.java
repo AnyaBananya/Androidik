@@ -10,6 +10,12 @@ public class City implements Serializable {
     private boolean isNeedPressure;
     private boolean isNeedWindSpeed;
 
+    public City(String name) {
+        this.name = name;
+        this.isNeedPressure = false;
+        this.isNeedWindSpeed = false;
+    }
+
     public City(String name, String temperature, String pressure, String windSpeed) {
         this.name = name;
         this.temperature = temperature;

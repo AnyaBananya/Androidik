@@ -1,0 +1,8 @@
+!*.gitignore
+.idea
+*.iml
+*.log
+.gradle
+apikey.properties
+local.properties
+screenshots
